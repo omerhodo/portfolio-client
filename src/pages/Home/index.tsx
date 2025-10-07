@@ -1,6 +1,6 @@
-import MainHeader from '@components/MainHeader';
-import Projects from '@components/Projects';
+import AboutMe from '@/components/AboutMe';
 import Section from '@/components/Container';
+import MainHeader from '@components/MainHeader';
 
 const Home = () => {
   return (
@@ -8,8 +8,8 @@ const Home = () => {
       <Section className="bg-yellow">
         <MainHeader />
       </Section>
-      <Section className="bg-dark">
-        <Projects />
+      <Section className="bg-dark justify-start">
+        <AboutMe />
       </Section>
     </>
   );
