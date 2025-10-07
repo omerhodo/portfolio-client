@@ -1,0 +1,64 @@
+@use '@utils/mixins' as *;
+
+.first-one {
+  font-size: 4rem;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Raleway', sans-serif;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.first-two {
+  font-size: 8rem;
+  font-weight: 700;
+  font-style: italic;
+  font-family: 'UnifrakturMaguntia', 'Bitcount Prop Single Ink', sans-serif;
+
+  @include mobile {
+    font-size: 5rem;
+  }
+}
+
+.second-one {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: normal;
+  font-family: 'Montserrat', sans-serif;
+  color: #1a202c;
+}
+
+.second-two {
+  color: purple !important;
+  -webkit-text-fill-color: purple !important;
+  font-size: 7rem;
+  font-weight: 400;
+  font-style: normal;
+  font-family: 'Bitcount Prop Single Ink', sans-serif;
+
+  @include mobile {
+    font-size: 3rem;
+  }
+}
+
+.third-one {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  font-family: 'Poiret One', sans-serif;
+  color: #1a202c;
+
+  @include mobile {
+    font-size: 2rem;
+  }
+}
+
+.third-two {
+  font-size: 3rem;
+  font-weight: 800;
+  font-style: italic;
+  font-family: 'InstrumentSerif', sans-serif;
+  color: #1a202c;
+  margin-top: 0.5rem;
+}
