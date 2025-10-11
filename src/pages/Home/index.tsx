@@ -61,7 +61,7 @@ const Home = () => {
 
   return (
     <>
-      <Container className="bg-yellow">
+      <Container className="bg-klein">
         <MainHeader />
       </Container>
 
