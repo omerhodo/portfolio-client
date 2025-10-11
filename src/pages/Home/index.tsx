@@ -65,6 +65,10 @@ const Home = () => {
         <MainHeader />
       </Container>
 
+      <Container className="bg-dark justify-start">
+        <AboutMe />
+      </Container>
+
       {!loading && projects.length > 0 && (
         <Container className="bg-white">
           <div className="w-full max-w-7xl mx-auto px-8">
@@ -103,10 +107,6 @@ const Home = () => {
           </div>
         </Container>
       )}
-
-      <Container className="bg-dark justify-start">
-        <AboutMe />
-      </Container>
     </>
   );
 };
