@@ -1,12 +1,15 @@
 import ChangePassword from '@components/ChangePassword';
 import Loading from '@components/Loading';
 import Login from '@components/Login';
+import ProjectForm from '@components/ProjectForm';
+import Tabs from '@components/Tabs';
 import { useEffect, useState } from 'react';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   useEffect(() => {
     checkAuth();
@@ -102,43 +105,86 @@ const Admin = () => {
           </button>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-            gap: '2rem',
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: '#f8f9fa',
-              padding: '2rem',
-              borderRadius: '8px',
-            }}
-          >
-            <h2 style={{ marginBottom: '1rem' }}>Dashboard</h2>
-            <p>Buraya admin paneli içeriğini ekleyebilirsin (proje yönetimi, vb.)</p>
+        <Tabs
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          tabs={[
+            {
+              id: 'dashboard',
+              label: 'Dashboard',
+              icon: '📊',
+              content: (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                    gap: '2rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: '#f8f9fa',
+                      padding: '2rem',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    <h2 style={{ marginBottom: '1rem' }}>Dashboard</h2>
+                    <p>Admin paneline hoş geldiniz!</p>
 
-            <div style={{ marginTop: '2rem' }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>Kullanıcı Bilgileri:</h3>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                <li>
-                  <strong>ID:</strong> {user?._id}
-                </li>
-                <li>
-                  <strong>Kullanıcı Adı:</strong> {user?.username}
-                </li>
-                <li>
-                  <strong>Email:</strong> {user?.email}
-                </li>
-                <li>
-                  <strong>Rol:</strong> {user?.role}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <ChangePassword />
-        </div>
+                    <div style={{ marginTop: '2rem' }}>
+                      <h3 style={{ marginBottom: '0.5rem' }}>Kullanıcı Bilgileri:</h3>
+                      <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <li>
+                          <strong>ID:</strong> {user?._id}
+                        </li>
+                        <li>
+                          <strong>Kullanıcı Adı:</strong> {user?.username}
+                        </li>
+                        <li>
+                          <strong>Email:</strong> {user?.email}
+                        </li>
+                        <li>
+                          <strong>Rol:</strong> {user?.role}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              id: 'projects',
+              label: 'Projeler',
+              icon: '📁',
+              content: (
+                <div>
+                  <ProjectForm
+                    onProjectCreated={() => {
+                      // Projeler listeleniyorsa yenilenebilir
+                      console.log('Proje oluşturuldu!');
+                    }}
+                  />
+                </div>
+              ),
+            },
+            {
+              id: 'settings',
+              label: 'Ayarlar',
+              icon: '⚙️',
+              content: (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                    gap: '2rem',
+                  }}
+                >
+                  <ChangePassword />
+                </div>
+              ),
+            },
+          ]}
+        />
       </div>
     </div>
   );
