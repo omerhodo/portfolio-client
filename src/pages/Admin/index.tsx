@@ -68,38 +68,16 @@ const Admin = () => {
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '2rem',
-            borderBottom: '1px solid #ddd',
-            paddingBottom: '1rem',
-          }}
-        >
+    <div className="p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-center mb-8 border-b border-gray-300 pb-4">
           <div>
-            <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Admin Panel</h1>
-            <p style={{ color: '#666' }}>Hoş geldin, {user?.username}!</p>
+            <h1 className="text-3xl font-bold mb-2">Admin Panel</h1>
+            <p className="text-gray-600">Hoş geldin, {user?.username}!</p>
           </div>
           <button
             onClick={handleLogout}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: '#dc3545',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
-            }}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white border-none rounded cursor-pointer transition-colors text-sm"
           >
             Çıkış Yap
           </button>
@@ -114,26 +92,14 @@ const Admin = () => {
               label: 'Dashboard',
               icon: '📊',
               content: (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-                    gap: '2rem',
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: '#f8f9fa',
-                      padding: '2rem',
-                      borderRadius: '8px',
-                    }}
-                  >
-                    <h2 style={{ marginBottom: '1rem' }}>Dashboard</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="bg-gray-50 p-8 rounded-lg">
+                    <h2 className="mb-4 text-xl font-bold">Dashboard</h2>
                     <p>Admin paneline hoş geldiniz!</p>
 
-                    <div style={{ marginTop: '2rem' }}>
-                      <h3 style={{ marginBottom: '0.5rem' }}>Kullanıcı Bilgileri:</h3>
-                      <ul style={{ listStyle: 'none', padding: 0 }}>
+                    <div className="mt-8">
+                      <h3 className="mb-2 font-semibold">Kullanıcı Bilgileri:</h3>
+                      <ul className="list-none p-0 space-y-1">
                         <li>
                           <strong>ID:</strong> {user?._id}
                         </li>
@@ -172,13 +138,7 @@ const Admin = () => {
               label: 'Ayarlar',
               icon: '⚙️',
               content: (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-                    gap: '2rem',
-                  }}
-                >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <ChangePassword />
                 </div>
               ),

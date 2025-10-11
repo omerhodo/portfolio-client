@@ -1,7 +1,7 @@
 import AboutMe from '@/components/AboutMe';
-import Section from '@/components/Container';
+import Container from '@/components/Container';
 import MainHeader from '@components/MainHeader';
-import ProjectSection from '@components/ProjectSection';
+import ProjectCarousel from '@components/ProjectCarousel';
 import { useEffect, useState } from 'react';
 
 interface Project {
@@ -22,6 +22,15 @@ const Home = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const projectTypes = [
+    { type: 'frontend', title: 'Frontend Projects', icon: '🎨' },
+    { type: 'backend', title: 'Backend Projects', icon: '⚙️' },
+    { type: 'mobile', title: 'Mobile Projects', icon: '📱' },
+    { type: 'wordpress', title: 'WordPress Projects', icon: '📝' },
+    { type: 'ai', title: 'AI Projects', icon: '🤖' },
+    { type: 'other', title: 'Other Projects', icon: '📦' },
+  ];
 
   useEffect(() => {
     fetchProjects();
@@ -45,70 +54,59 @@ const Home = () => {
     }
   };
 
+  const groupedProjects = projectTypes.map((typeInfo) => ({
+    ...typeInfo,
+    projects: projects.filter((p) => p.projectType === typeInfo.type),
+  }));
+
   return (
     <>
-      <Section className="bg-yellow">
+      <Container className="bg-yellow">
         <MainHeader />
-      </Section>
-
-      <Section className="bg-dark justify-start">
-        <AboutMe />
-      </Section>
+      </Container>
 
       {!loading && projects.length > 0 && (
-        <Section className="bg-white">
-          <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
-            <h2
-              style={{
-                fontSize: '2.5rem',
-                fontWeight: 'bold',
-                marginBottom: '3rem',
-                textAlign: 'center',
-                color: '#333',
-              }}
-            >
-              Projects
-            </h2>
+        <Container className="bg-white">
+          <div className="w-full max-w-7xl mx-auto px-8">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">My Projects</h2>
 
-            {error && (
-              <div
-                style={{
-                  backgroundColor: '#fee',
-                  color: '#c33',
-                  padding: '1rem',
-                  borderRadius: '4px',
-                  marginBottom: '2rem',
-                  textAlign: 'center',
-                }}
-              >
-                {error}
-              </div>
-            )}
+            {error && <div className="bg-red-50 text-red-700 p-4 rounded mb-8 text-center">{error}</div>}
 
             <div>
-              {projects.map((project, index) => (
-                <ProjectSection key={project._id} project={project} reverse={index % 2 !== 0} />
-              ))}
+              {groupedProjects.map((group) =>
+                group.projects.length > 0 ? (
+                  <ProjectCarousel
+                    key={group.type}
+                    projects={group.projects}
+                    projectType={group.type}
+                    title={`${group.icon} ${group.title}`}
+                  />
+                ) : null
+              )}
             </div>
           </div>
-        </Section>
+        </Container>
       )}
 
       {loading && (
-        <Section className="bg-white">
-          <div style={{ textAlign: 'center', padding: '3rem' }}>
-            <p style={{ fontSize: '1.2rem', color: '#666' }}>Projeler yükleniyor...</p>
+        <Container className="bg-white">
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-600">Projeler yükleniyor...</p>
           </div>
-        </Section>
+        </Container>
       )}
 
       {!loading && projects.length === 0 && !error && (
-        <Section className="bg-white">
-          <div style={{ textAlign: 'center', padding: '3rem' }}>
-            <p style={{ fontSize: '1.2rem', color: '#666' }}>Henüz proje eklenmemiş.</p>
+        <Container className="bg-white">
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-600">Henüz proje eklenmemiş.</p>
           </div>
-        </Section>
+        </Container>
       )}
+
+      <Container className="bg-dark justify-start">
+        <AboutMe />
+      </Container>
     </>
   );
 };
