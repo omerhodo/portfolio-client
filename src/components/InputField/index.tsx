@@ -12,6 +12,8 @@ interface InputFieldProps {
   labelStyle?: React.CSSProperties;
   inputClass?: string;
   inputStyle?: React.CSSProperties;
+  warningText?: string;
+  warningStyle?: React.CSSProperties;
 }
 
 const InputField = ({
@@ -32,7 +34,14 @@ const InputField = ({
     fontWeight: '500',
   },
   inputClass,
-  inputStyle,
+  inputStyle = {
+    width: '100%',
+    padding: '0.75rem',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+  },
+  warningText,
+  warningStyle,
 }: InputFieldProps) => {
   return (
     <div className={boxClass} style={boxStyle}>
@@ -51,6 +60,7 @@ const InputField = ({
         className={inputClass}
         style={inputStyle}
       />
+      {warningText && <small style={warningStyle}>{warningText}</small>}
     </div>
   );
 };
