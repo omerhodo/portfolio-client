@@ -1,3 +1,4 @@
+import Admin from '@pages/Admin';
 import Contact from '@pages/Contact';
 import Home from '@pages/Home';
 import Projects from '@pages/Projects';
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );
