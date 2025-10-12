@@ -91,7 +91,7 @@ const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
             display: 'inline-block',
             padding: '0.25rem 0.75rem',
             borderRadius: '4px',
-            backgroundColor: getProjectTypeColor(project.projectType),
+            backgroundColor: getProjectTypeColor(project.projectType || ''),
             color: 'white',
             fontSize: '0.75rem',
             fontWeight: 'bold',

@@ -52,11 +52,11 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
           <div className="flex items-center gap-4 mb-3 flex-wrap">
             <span
               className="inline-block px-4 py-2 rounded-md text-white text-sm font-bold uppercase"
-              style={{ backgroundColor: getProjectTypeColor(project.projectType) }}
+              style={{ backgroundColor: getProjectTypeColor(project.projectType || '') }}
             >
               {project.projectType}
             </span>
-            <span className="text-gray-500 text-sm">{formatDate(project.createdAt)}</span>
+            <span className="text-gray-500 text-sm">{formatDate(project.createdAt || '')}</span>
           </div>
 
           <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">{project.title}</h1>

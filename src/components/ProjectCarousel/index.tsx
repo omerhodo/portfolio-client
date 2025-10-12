@@ -26,18 +26,6 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  const getProjectTypeColor = (type: string) => {
-    const colors: { [key: string]: string } = {
-      frontend: '#61dafb',
-      backend: '#68a063',
-      mobile: '#a4c639',
-      wordpress: '#21759b',
-      ai: '#ff6f00',
-      other: '#9c27b0',
-    };
-    return colors[type] || '#666';
-  };
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -87,109 +75,43 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
   if (projects.length === 0) return null;
 
   return (
-    <div
-      style={{
-        marginBottom: '4rem',
-        position: 'relative',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '2rem',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <h3
-            style={{
-              fontSize: '2rem',
-              fontWeight: 'bold',
-              color: '#333',
-              margin: 0,
-            }}
-          >
-            {title}
-          </h3>
-          <span
-            style={{
-              padding: '0.25rem 0.75rem',
-              borderRadius: '20px',
-              backgroundColor: getProjectTypeColor(projectType),
-              color: 'white',
-              fontSize: '0.875rem',
-              fontWeight: 'bold',
-            }}
-          >
-            {projects.length}
-          </span>
+    <div className="mb-16 relative">
+      <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center gap-4">
+          <h3 className="text-3xl text-gray-800 m-0 font-suse-mono">{title}</h3>
+          <span className="px-3 py-1 rounded-full text-white text-sm font-bold bg-cyan-700">{projects.length}</span>
         </div>
 
         {/* Navigation Buttons - Desktop */}
         {projects.length > itemsPerView && (
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div className="flex gap-2">
             <button
               onClick={handlePrev}
               disabled={!canGoPrev}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                border: 'none',
-                backgroundColor: canGoPrev ? '#333' : '#ddd',
-                color: 'white',
-                cursor: canGoPrev ? 'pointer' : 'not-allowed',
-                fontSize: '1.2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                if (canGoPrev) {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.transform = 'scale(1.1)';
+              className={`
+                w-10 h-10 rounded-full border-none text-white text-xl
+                flex items-center justify-center transition-all
+                ${
+                  canGoPrev
+                    ? 'bg-cyan-700 hover:bg-cyan-900 hover:scale-110 cursor-pointer'
+                    : 'bg-gray-400 cursor-not-allowed'
                 }
-              }}
-              onMouseLeave={(e) => {
-                if (canGoPrev) {
-                  e.currentTarget.style.backgroundColor = '#333';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }
-              }}
+              `}
             >
               ←
             </button>
             <button
               onClick={handleNext}
               disabled={!canGoNext}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                border: 'none',
-                backgroundColor: canGoNext ? '#333' : '#ddd',
-                color: 'white',
-                cursor: canGoNext ? 'pointer' : 'not-allowed',
-                fontSize: '1.2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                if (canGoNext) {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.transform = 'scale(1.1)';
+              className={`
+                w-10 h-10 rounded-full border-none text-white text-xl
+                flex items-center justify-center transition-all
+                ${
+                  canGoNext
+                    ? 'bg-cyan-700 hover:bg-cyan-900 hover:scale-110 cursor-pointer'
+                    : 'bg-gray-400 cursor-not-allowed'
                 }
-              }}
-              onMouseLeave={(e) => {
-                if (canGoNext) {
-                  e.currentTarget.style.backgroundColor = '#333';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }
-              }}
+              `}
             >
               →
             </button>
@@ -198,22 +120,12 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
       </div>
 
       {/* Carousel Container */}
-      <div
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          padding: '0.5rem 0',
-        }}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className="relative overflow-hidden py-2" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <div
           ref={carouselRef}
+          className="flex gap-6 transition-transform duration-400 ease-in-out"
           style={{
-            display: 'flex',
-            gap: '1.5rem',
             transform: `translateX(-${currentIndex * (100 / itemsPerView + 1.5)}%)`,
-            transition: 'transform 0.4s ease-in-out',
           }}
         >
           {projects.map((project) => (
@@ -232,26 +144,17 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
 
       {/* Dots Indicator */}
       {projects.length > itemsPerView && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            marginTop: '1.5rem',
-          }}
-        >
+        <div className="flex justify-center gap-2 mt-6">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
+              className={`
+                h-2 rounded border-none cursor-pointer transition-all duration-300
+                ${currentIndex === index ? 'w-6' : 'w-2'}
+              `}
               style={{
-                width: currentIndex === index ? '24px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                border: 'none',
-                backgroundColor: currentIndex === index ? getProjectTypeColor(projectType) : '#ddd',
-                cursor: 'pointer',
-                transition: 'all 0.3s',
+                backgroundColor: currentIndex === index ? '#0d9488' : 'darkgray',
               }}
               aria-label={`Go to slide ${index + 1}`}
             />
