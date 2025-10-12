@@ -1,20 +1,7 @@
+import type { Project } from '@/types';
 import ProjectCard from '@components/ProjectCard';
 import ProjectDetailModal from '@components/ProjectDetailModal';
 import { useEffect, useRef, useState } from 'react';
-
-interface Project {
-  _id: string;
-  title: string;
-  description: string;
-  projectType: string;
-  technologies: string[];
-  imageUrl?: string;
-  projectUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  order: number;
-  createdAt: string;
-}
 
 interface ProjectCarouselProps {
   projects: Project[];
@@ -36,7 +23,7 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300); // Animation bitsin diye
+    setTimeout(() => setSelectedProject(null), 300);
   };
 
   const getProjectTypeColor = (type: string) => {

@@ -1,13 +1,14 @@
 export interface Project {
-  _id: string
-  title: string
-  description: string
-  technologies?: string[]
-  imageUrl?: string
-  projectUrl?: string
-  githubUrl?: string
-  featured?: boolean
-  order?: number
-  createdAt?: string
-  updatedAt?: string
+  _id: string;
+  title: string;
+  description: string;
+  technologies?: string[];
+  projectType?: string;
+  imageUrl?: string;
+  projectUrl?: string;
+  githubUrl?: string;
+  featured?: boolean;
+  order?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }

@@ -1,22 +1,9 @@
 import AboutMe from '@/components/AboutMe';
 import Container from '@/components/Container';
+import type { Project } from '@/types';
 import MainHeader from '@components/MainHeader';
 import ProjectCarousel from '@components/ProjectCarousel';
 import { useEffect, useState } from 'react';
-
-interface Project {
-  _id: string;
-  title: string;
-  description: string;
-  projectType: string;
-  technologies: string[];
-  imageUrl?: string;
-  projectUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  order: number;
-  createdAt: string;
-}
 
 const Home = () => {
   const [projects, setProjects] = useState<Project[]>([]);

@@ -1,16 +1,4 @@
-interface Project {
-  _id: string;
-  title: string;
-  description: string;
-  projectType: string;
-  technologies: string[];
-  imageUrl?: string;
-  projectUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  order: number;
-  createdAt: string;
-}
+import type { Project } from '@/types';
 
 interface ProjectSectionProps {
   project: Project;

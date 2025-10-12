@@ -1,18 +1,5 @@
+import type { Project } from '@/types';
 import Modal from '@components/Modal';
-
-interface Project {
-  _id: string;
-  title: string;
-  description: string;
-  projectType: string;
-  technologies: string[];
-  imageUrl?: string;
-  projectUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  order: number;
-  createdAt: string;
-}
 
 interface ProjectDetailModalProps {
   project: Project | null;
