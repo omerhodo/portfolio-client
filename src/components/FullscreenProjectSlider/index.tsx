@@ -140,7 +140,7 @@ const FullscreenProjectSlider = ({
       {currentIndex === 0 && (
         <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10">
           <div className="flex flex-col items-center gap-2">
-            <h2 className="text-4xl md:text-6xl font-notable text-stone-300 text-shadow-md opacity-50">
+            <h2 className="text-4xl md:text-6xl font-notable text-stone-300 text-shadow-md opacity-60">
               {icon} {title}
             </h2>
           </div>
