@@ -1,8 +1,8 @@
 import AboutMe from '@/components/AboutMe';
 import Container from '@/components/Container';
+import FullscreenProjectSlider from '@/components/FullscreenProjectSlider';
 import type { Project } from '@/types';
 import MainHeader from '@components/MainHeader';
-import ProjectCarousel from '@components/ProjectCarousel';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
@@ -57,28 +57,30 @@ const Home = () => {
       </Container>
 
       {!loading && projects.length > 0 && (
-        <Container className="bg-violet-200">
-          <div className="w-full max-w-7xl mx-auto px-8">
-            <h2 className="text-3xl md:text-6xl text-center text-cyan-700 font-notable mb-4 mt-4 md:mb-20 md:mt-0">
-              My Projects
-            </h2>
+        <>
+          {error && (
+            <Container className="bg-red-50">
+              <div className="text-red-700 p-4 rounded text-center">{error}</div>
+            </Container>
+          )}
 
-            {error && <div className="bg-red-50 text-red-700 p-4 rounded mb-8 text-center">{error}</div>}
+          {groupedProjects.map((group, _index, array) => {
+            const filteredArray = array.filter((g) => g.projects.length > 0);
+            const filteredIndex = filteredArray.findIndex((g) => g.type === group.type);
+            const isLastSection = filteredIndex === filteredArray.length - 1;
 
-            <div>
-              {groupedProjects.map((group) =>
-                group.projects.length > 0 ? (
-                  <ProjectCarousel
-                    key={group.type}
-                    projects={group.projects}
-                    projectType={group.type}
-                    title={`${group.icon} ${group.title}`}
-                  />
-                ) : null
-              )}
-            </div>
-          </div>
-        </Container>
+            return group.projects.length > 0 ? (
+              <FullscreenProjectSlider
+                key={group.type}
+                projects={group.projects}
+                projectType={group.type}
+                title={group.title}
+                icon={group.icon}
+                isLastSection={isLastSection}
+              />
+            ) : null;
+          })}
+        </>
       )}
 
       {loading && (
