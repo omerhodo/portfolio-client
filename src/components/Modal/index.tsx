@@ -1,4 +1,3 @@
-import { startLenis, stopLenis } from '@/utils/lenis';
 import { ReactNode, useEffect } from 'react';
 
 interface ModalProps {
@@ -19,8 +18,6 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
     if (isOpen) {
       document.addEventListener('keydown', handleEsc);
 
-      stopLenis();
-
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
@@ -29,7 +26,6 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
 
     return () => {
       document.removeEventListener('keydown', handleEsc);
-      startLenis();
 
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';

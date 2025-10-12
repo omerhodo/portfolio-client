@@ -1,17 +1,8 @@
 import profilePic from '@assets/profile.jpg';
 import Image from '@components/Image';
-import { destroyLenis, initLenis } from '@utils/lenis';
-import { useEffect } from 'react';
 import styles from './MainHeader.module.scss';
 
 const MainHeader = () => {
-  useEffect(() => {
-    initLenis();
-
-    return () => {
-      destroyLenis();
-    };
-  }, []);
   return (
     <div className="flex flex-col w-full">
       <div className="flex mb-8 items-center flex-col md:flex-row gap-8 md:gap-0">
