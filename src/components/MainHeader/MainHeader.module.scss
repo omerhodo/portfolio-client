@@ -15,6 +15,7 @@
   font-weight: 700;
   font-style: italic;
   font-family: 'UnifrakturMaguntia', 'Bitcount Prop Single Ink', sans-serif;
+  color: #d1d1d1;
 
   @include mobile {
     font-size: 5rem;
@@ -30,8 +31,6 @@
 }
 
 .second-two {
-  color: purple !important;
-  -webkit-text-fill-color: purple !important;
   font-size: 7rem;
   font-weight: 400;
   font-style: normal;
@@ -47,7 +46,7 @@
   font-weight: 400;
   font-style: normal;
   font-family: 'Poiret One', sans-serif;
-  color: #1a202c;
+  color: #d1d1d1;
 
   @include mobile {
     font-size: 2rem;
