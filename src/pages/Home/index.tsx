@@ -59,7 +59,9 @@ const Home = () => {
       {!loading && projects.length > 0 && (
         <Container className="bg-violet-200">
           <div className="w-full max-w-7xl mx-auto px-8">
-            <h2 className="text-6xl text-center text-cyan-700 font-notable mb-20">My Projects</h2>
+            <h2 className="text-3xl md:text-6xl text-center text-cyan-700 font-notable mb-4 mt-4 md:mb-20 md:mt-0">
+              My Projects
+            </h2>
 
             {error && <div className="bg-red-50 text-red-700 p-4 rounded mb-8 text-center">{error}</div>}
 

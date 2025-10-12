@@ -1,6 +1,7 @@
 import type { Project } from '@/types';
 import ProjectCard from '@components/ProjectCard';
 import ProjectDetailModal from '@components/ProjectDetailModal';
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 interface ProjectCarouselProps {
@@ -76,9 +77,9 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
 
   return (
     <div className="mb-16 relative">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 gap-4">
         <div className="flex items-center gap-4">
-          <h3 className="text-3xl text-gray-800 m-0 font-suse-mono">{title}</h3>
+          <h3 className="text-xl md:text-3xl text-gray-800 m-0 font-suse-mono">{title}</h3>
           <span className="px-3 py-1 rounded-full text-white text-sm font-bold bg-cyan-700">{projects.length}</span>
         </div>
 
@@ -129,15 +130,19 @@ const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps)
           }}
         >
           {projects.map((project) => (
-            <div
+            <motion.div
               key={project._id}
               style={{
                 minWidth: `calc(${100 / itemsPerView}% - ${(1.5 * (itemsPerView - 1)) / itemsPerView}rem)`,
                 maxWidth: `calc(${100 / itemsPerView}% - ${(1.5 * (itemsPerView - 1)) / itemsPerView}rem)`,
               }}
+              initial={{ y: 200 }}
+              whileInView={{ y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
             >
               <ProjectCard project={project} onClick={() => handleProjectClick(project)} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
