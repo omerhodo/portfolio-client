@@ -1,25 +1,15 @@
 import profilePic from '@assets/profile.jpg';
 import Image from '@components/Image';
-import Lenis from '@studio-freight/lenis';
+import { destroyLenis, initLenis } from '@utils/lenis';
 import { useEffect } from 'react';
 import styles from './MainHeader.module.scss';
 
 const MainHeader = () => {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+    initLenis();
 
     return () => {
-      lenis.destroy();
+      destroyLenis();
     };
   }, []);
   return (
