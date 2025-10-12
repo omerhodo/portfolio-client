@@ -7,7 +7,7 @@ import './App.scss';
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="App overflow-y-scroll h-screen" style={{ scrollSnapType: 'y mandatory' }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
