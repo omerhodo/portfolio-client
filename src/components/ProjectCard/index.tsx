@@ -11,7 +11,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       onClick={onClick}
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer relative hover:-translate-y-2"
     >
-      <div className="relative w-full h-[450px] bg-gray-100 overflow-hidden group">
+      <div className="relative w-full h-full bg-gray-100 overflow-hidden group">
         {project.imageUrl ? (
           <img
             src={project.imageUrl}
@@ -27,17 +27,6 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             ⭐
           </div>
         )}
-
-        <div
-          className="absolute bottom-0 left-0 right-0 pt-12 px-5 pb-5"
-          style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 70%, transparent 100%)',
-          }}
-        >
-          <h3 className="text-white text-xl font-bold m-0 leading-snug text-center line-clamp-3 drop-shadow-lg">
-            {project.title}
-          </h3>
-        </div>
       </div>
     </div>
   );
