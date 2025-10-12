@@ -1,7 +1,7 @@
 import type { Project } from '@/types';
 import ProjectCard from '@components/ProjectCard';
 import ProjectDetailModal from '@components/ProjectDetailModal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface FullscreenProjectSliderProps {
   projects: Project[];
@@ -21,6 +21,7 @@ const FullscreenProjectSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -59,7 +60,6 @@ const FullscreenProjectSlider = ({
     }
   };
 
-  // Scroll to next section
   const scrollToNextSection = () => {
     const currentElement =
       document.querySelector('.fullscreen-slider:hover') || document.querySelector('.fullscreen-slider');
@@ -70,10 +70,16 @@ const FullscreenProjectSlider = ({
     }
   };
 
-  // Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isModalOpen) return; // Don't navigate if modal is open
+      if (isModalOpen) return;
+
+      if (!sliderRef.current) return;
+
+      const rect = sliderRef.current.getBoundingClientRect();
+      const isInView = rect.top >= -100 && rect.top <= 100;
+
+      if (!isInView) return;
 
       if (e.key === 'ArrowLeft') {
         handlePrev();
@@ -88,7 +94,6 @@ const FullscreenProjectSlider = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentIndex, isModalOpen, canGoPrev, canGoNext, isLastSection]);
 
-  // Mouse Wheel Navigation - Fixed for better behavior
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
     let isScrolling = false;
@@ -114,7 +119,7 @@ const FullscreenProjectSlider = ({
       }
     };
 
-    const element = document.querySelector('.fullscreen-slider');
+    const element = sliderRef.current;
     element?.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
@@ -126,13 +131,12 @@ const FullscreenProjectSlider = ({
 
   return (
     <div
+      ref={sliderRef}
       className="fullscreen-slider relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
       style={{ scrollSnapAlign: 'start' }}
     >
-      {/* Background Overlay with Type Color */}
       <div className="absolute inset-0 opacity-5" style={{ backgroundColor: getProjectTypeColor(projectType) }} />
 
-      {/* Title & Icon - Top Center - Only on First Slide */}
       {currentIndex === 0 && (
         <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10">
           <div className="flex flex-col items-center gap-2">
