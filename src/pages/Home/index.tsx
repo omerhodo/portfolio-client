@@ -13,6 +13,7 @@ const Home = () => {
   const projectTypes = [
     { type: 'frontend', title: 'Frontend Projects', icon: '🎨' },
     { type: 'backend', title: 'Backend Projects', icon: '⚙️' },
+    { type: 'fullstack', title: 'Fullstack Projects', icon: '🌐' },
     { type: 'mobile', title: 'Mobile Projects', icon: '📱' },
     { type: 'wordpress', title: 'WordPress Projects', icon: '📝' },
     { type: 'ai', title: 'AI Projects', icon: '🤖' },

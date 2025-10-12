@@ -27,6 +27,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
   const projectTypeOptions = [
     { value: 'frontend', label: 'Frontend' },
     { value: 'backend', label: 'Backend' },
+    { value: 'fullstack', label: 'Fullstack' },
     { value: 'mobile', label: 'Mobile' },
     { value: 'wordpress', label: 'WordPress' },
     { value: 'ai', label: 'AI' },

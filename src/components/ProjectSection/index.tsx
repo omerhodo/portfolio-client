@@ -10,6 +10,7 @@ const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
     const colors: { [key: string]: string } = {
       frontend: '#61dafb',
       backend: '#68a063',
+      fullstack: '#162b82ff',
       mobile: '#a4c639',
       wordpress: '#21759b',
       ai: '#ff6f00',
