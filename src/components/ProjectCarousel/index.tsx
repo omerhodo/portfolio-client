@@ -10,7 +10,7 @@ interface ProjectCarouselProps {
   title: string;
 }
 
-const ProjectCarousel = ({ projects, projectType, title }: ProjectCarouselProps) => {
+const ProjectCarousel = ({ projects, title }: ProjectCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
