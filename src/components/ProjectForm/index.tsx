@@ -20,6 +20,8 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     order: 0,
   });
 
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,32 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     { value: 'other', label: 'Other' },
   ];
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Dosya boyutu 5MB'dan küçük olmalıdır");
+        return;
+      }
+
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        setError('Sadece resim dosyaları yüklenebilir (jpeg, jpg, png, gif, webp)');
+        return;
+      }
+
+      setImageFile(file);
+
+      // Preview oluştur
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      setError('');
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
@@ -43,32 +71,48 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     try {
       const token = localStorage.getItem('token');
 
-      // Technologies string'i array'e çevir
-      const technologiesArray = formData.technologies
-        .split(',')
-        .map((tech) => tech.trim())
-        .filter((tech) => tech !== '');
+      // Zorunlu alanları kontrol et
+      if (!formData.title || !formData.description || !formData.projectType) {
+        setError('Lütfen tüm zorunlu alanları doldurun');
+        setLoading(false);
+        return;
+      }
 
-      const projectData = {
-        ...formData,
-        technologies: technologiesArray,
-        order: Number(formData.order),
-      };
+      const formDataToSend = new FormData();
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('projectType', formData.projectType);
+      formDataToSend.append('technologies', formData.technologies);
+      formDataToSend.append('projectUrl', formData.projectUrl);
+      formDataToSend.append('githubUrl', formData.githubUrl);
+      formDataToSend.append('featured', String(formData.featured));
+      formDataToSend.append('order', String(formData.order));
+
+      if (imageFile) {
+        formDataToSend.append('image', imageFile);
+      }
+
+      console.log('Form Data being sent:');
+      for (let pair of formDataToSend.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(projectData),
+        body: formDataToSend,
       });
 
       const data = await response.json();
 
       if (!response.ok) {
+        console.error('Server error response:', data);
         throw new Error(data.message || 'Proje oluşturma başarısız');
       }
+
+      console.log('Success response:', data);
 
       setSuccess('Proje başarıyla oluşturuldu!');
 
@@ -83,6 +127,8 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
         featured: false,
         order: 0,
       });
+      setImageFile(null);
+      setImagePreview('');
 
       if (onProjectCreated) {
         setTimeout(() => {
@@ -209,14 +255,56 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
           />
         </div>
 
-        <InputField
-          type="url"
-          label="Görsel URL"
-          value={formData.imageUrl}
-          onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-          disabled={loading}
-          placeholder="https://example.com/image.jpg"
-        />
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label
+            style={{
+              display: 'block',
+              marginBottom: '0.5rem',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              color: '#333',
+            }}
+          >
+            Proje Görseli
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '0.5rem',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              fontSize: '0.875rem',
+              cursor: loading ? 'not-allowed' : 'pointer',
+            }}
+          />
+          {imagePreview && (
+            <div style={{ marginTop: '1rem' }}>
+              <img
+                src={imagePreview}
+                alt="Preview"
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '200px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                }}
+              />
+            </div>
+          )}
+          <p
+            style={{
+              marginTop: '0.25rem',
+              fontSize: '0.75rem',
+              color: '#666',
+            }}
+          >
+            Maksimum dosya boyutu: 5MB (jpeg, jpg, png, gif, webp)
+          </p>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <div style={{ marginBottom: '1.5rem' }}>

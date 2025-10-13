@@ -36,8 +36,12 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
     <Modal isOpen={isOpen} onClose={onClose}>
       <div>
         <div className="w-full h-96 bg-gray-100 rounded-lg overflow-hidden mb-8 relative">
-          {project.imageUrl ? (
-            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+          {project.imagePath || project.imageUrl ? (
+            <img
+              src={project.imagePath ? `${import.meta.env.VITE_API_URL}${project.imagePath}` : project.imageUrl}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-9xl text-gray-300">📁</div>
           )}

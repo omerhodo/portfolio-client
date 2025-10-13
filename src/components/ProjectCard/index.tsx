@@ -12,9 +12,9 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer relative hover:-translate-y-2"
     >
       <div className="relative w-full h-full bg-gray-100 overflow-hidden group">
-        {project.imageUrl ? (
+        {project.imagePath || project.imageUrl ? (
           <img
-            src={project.imageUrl}
+            src={project.imagePath ? `${import.meta.env.VITE_API_URL}${project.imagePath}` : project.imageUrl}
             alt={project.title}
             className="w-full h-full min-h-[350px] object-cover transition-transform duration-300 group-hover:scale-105 filter brightness-70 hover:brightness-100"
           />

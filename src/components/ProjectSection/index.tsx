@@ -42,9 +42,9 @@ const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
           backgroundColor: '#f0f0f0',
         }}
       >
-        {project.imageUrl ? (
+        {project.imagePath || project.imageUrl ? (
           <img
-            src={project.imageUrl}
+            src={project.imagePath ? `${import.meta.env.VITE_API_URL}${project.imagePath}` : project.imageUrl}
             alt={project.title}
             style={{
               width: '100%',
