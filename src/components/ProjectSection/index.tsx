@@ -1,4 +1,5 @@
 import type { Project } from '@/types';
+import { getImageUrl } from '@/utils/api';
 
 interface ProjectSectionProps {
   project: Project;
@@ -6,6 +7,8 @@ interface ProjectSectionProps {
 }
 
 const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
+  const imageUrl = project.imagePath ? getImageUrl(project.imagePath) : project.imageUrl;
+
   const getProjectTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       frontend: '#61dafb',
@@ -42,9 +45,9 @@ const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
           backgroundColor: '#f0f0f0',
         }}
       >
-        {project.imagePath || project.imageUrl ? (
+        {imageUrl ? (
           <img
-            src={project.imagePath ? `${import.meta.env.VITE_API_URL}${project.imagePath}` : project.imageUrl}
+            src={imageUrl}
             alt={project.title}
             style={{
               width: '100%',

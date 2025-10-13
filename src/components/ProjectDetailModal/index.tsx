@@ -1,4 +1,5 @@
 import type { Project } from '@/types';
+import { getImageUrl } from '@/utils/api';
 import Modal from '@components/Modal';
 
 interface ProjectDetailModalProps {
@@ -9,6 +10,8 @@ interface ProjectDetailModalProps {
 
 const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProps) => {
   if (!project) return null;
+
+  const imageUrl = project.imagePath ? getImageUrl(project.imagePath) : project.imageUrl;
 
   const getProjectTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
@@ -36,12 +39,8 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
     <Modal isOpen={isOpen} onClose={onClose}>
       <div>
         <div className="w-full h-96 bg-gray-100 rounded-lg overflow-hidden mb-8 relative">
-          {project.imagePath || project.imageUrl ? (
-            <img
-              src={project.imagePath ? `${import.meta.env.VITE_API_URL}${project.imagePath}` : project.imageUrl}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
+          {imageUrl ? (
+            <img src={imageUrl} alt={project.title} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-9xl text-gray-300">📁</div>
           )}
