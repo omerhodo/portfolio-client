@@ -2,14 +2,17 @@ import ChangePassword from '@components/ChangePassword';
 import Loading from '@components/Loading';
 import Login from '@components/Login';
 import ProjectForm from '@components/ProjectForm';
+import ProjectList from '@components/ProjectList';
 import Tabs from '@components/Tabs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const projectsTabRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     checkAuth();
@@ -71,9 +74,17 @@ const Admin = () => {
     <div className="p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8 border-b border-gray-300 pb-4">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Admin Panel</h1>
-            <p className="text-gray-600">Welcome, {user?.username}!</p>
+          <div className="flex items-center gap-4">
+            <a
+              href="/"
+              className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white border-none rounded cursor-pointer transition-colors text-sm flex items-center gap-2 no-underline"
+            >
+              <span>←</span>
+            </a>
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Admin Panel</h1>
+              <p className="text-gray-600">Welcome, {user?.username}!</p>
+            </div>
           </div>
           <button
             onClick={handleLogout}
@@ -123,11 +134,21 @@ const Admin = () => {
               label: 'Projects',
               icon: '📁',
               content: (
-                <div>
+                <div ref={projectsTabRef}>
                   <ProjectForm
                     onProjectCreated={() => {
-                      // Projeler listeleniyorsa yenilenebilir
-                      console.log('Proje oluşturuldu!');
+                      // Scroll to top
+                      if (projectsTabRef.current) {
+                        projectsTabRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                      // Refresh project list
+                      setRefreshTrigger((prev) => prev + 1);
+                    }}
+                  />
+                  <ProjectList
+                    refreshTrigger={refreshTrigger}
+                    onProjectUpdated={() => {
+                      setRefreshTrigger((prev) => prev + 1);
                     }}
                   />
                 </div>
