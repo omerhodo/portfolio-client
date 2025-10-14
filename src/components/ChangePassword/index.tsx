@@ -53,10 +53,10 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Şifre değiştirme başarısız');
+        throw new Error(data.message || 'Something went wrong');
       }
 
-      setSuccess('Şifre başarıyla değiştirildi!');
+      setSuccess('Password changed successfully!');
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -67,7 +67,7 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
         }, 2000);
       }
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu');
+      setError(err.message || 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
           fontWeight: 'bold',
         }}
       >
-        Şifre Değiştir
+        Change Password
       </h3>
 
       {error && (
@@ -127,7 +127,7 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
         <InputField
           type="password"
           value={currentPassword}
-          label="Mevcut Şifre"
+          label="Current Password"
           onChange={(e) => setCurrentPassword(e.target.value)}
           required
           disabled={loading}
@@ -136,16 +136,16 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
         <InputField
           type="password"
           value={newPassword}
-          label="Yeni Şifre"
+          label="New Password"
           onChange={(e) => setNewPassword(e.target.value)}
           required
           disabled={loading}
-          warningText="En az 6 karakter olmalı"
+          warningText="Must be at least 6 characters"
           warningStyle={{ color: '#666', fontSize: '0.75rem' }}
         />
         <InputField
           type="password"
-          label="Yeni Şifre (Tekrar)"
+          label="Confirm New Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
@@ -179,7 +179,7 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
             }
           }}
         >
-          {loading ? 'Değiştiriliyor...' : 'Şifreyi Değiştir'}
+          {loading ? 'Changing...' : 'Change Password'}
         </button>
       </form>
     </div>
