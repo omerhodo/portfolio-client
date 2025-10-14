@@ -1,5 +1,6 @@
 import profilePic from '@assets/profile.jpg';
 import Image from '@components/Image';
+import { motion } from 'framer-motion';
 import styles from './MainHeader.module.scss';
 
 const MainHeader = () => {
@@ -7,9 +8,15 @@ const MainHeader = () => {
     <div className="flex flex-col w-full">
       <div className="flex mb-8 items-center flex-col md:flex-row gap-8 md:gap-0">
         <p className={styles['first-one']}>I'm &nbsp;</p>
-        <p className={`${styles['first-two']}`}>
+        <motion.p
+          className={`${styles['first-two']}`}
+          initial={{ x: -300 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
           Ömer <span className="bg-klein-opacity-10 p-3">Hodo</span>
-        </p>
+        </motion.p>
         <Image
           src={profilePic}
           alt="Ömer Hodo"
@@ -33,9 +40,23 @@ const MainHeader = () => {
           borderRadius="20px"
           style={{ objectFit: 'cover', marginInlineStart: '10px', marginInlineEnd: '10px' }}
         />
-        <p className={styles['second-two']}>developer</p>
+        <motion.p
+          className={styles['second-two']}
+          initial={{ x: 300 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
+          developer
+        </motion.p>
       </div>
-      <div className="flex items-center justify-center tracking-[10px] md:flex-row flex-col gap-8 md:gap-0">
+      <motion.div
+        className="flex items-center justify-center tracking-[10px] md:flex-row flex-col gap-8 md:gap-0"
+        initial={{ y: 200 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
         <p className={styles['third-one']}>based in Antalya</p>
         <Image
           src="https://images.unsplash.com/photo-1648325129746-abcc1b872380?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -47,7 +68,7 @@ const MainHeader = () => {
           style={{ objectFit: 'cover', marginInlineStart: '10px' }}
         />
         <span className={styles['third-two']}>, Turkiye</span>
-      </div>
+      </motion.div>
     </div>
   );
 };
