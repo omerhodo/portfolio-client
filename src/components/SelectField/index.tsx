@@ -59,7 +59,7 @@ const SelectField = ({
         className={selectClass}
         style={selectStyle}
       >
-        <option value="">Seçiniz...</option>
+        <option value="">Please select...</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

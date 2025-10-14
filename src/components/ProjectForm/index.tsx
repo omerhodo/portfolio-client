@@ -159,7 +159,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
           fontWeight: 'bold',
         }}
       >
-        Yeni Proje Ekle
+        Add New Project
       </h3>
 
       {error && (
@@ -265,7 +265,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
               color: '#333',
             }}
           >
-            Proje Görseli
+            Project Image
           </label>
           <input
             type="file"
@@ -302,7 +302,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
               color: '#666',
             }}
           >
-            Maksimum dosya boyutu: 5MB (jpeg, jpg, png, gif, webp)
+            Maximum file size: 5MB (jpeg, jpg, png, gif, webp)
           </p>
         </div>
 
@@ -323,18 +323,18 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
                 disabled={loading}
                 style={{ cursor: 'pointer' }}
               />
-              <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>Öne Çıkan Proje</span>
+              <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>Featured Project</span>
             </label>
           </div>
 
           <InputField
             type="number"
-            label="Sıralama"
+            label="Order"
             value={String(formData.order)}
             onChange={(e) => setFormData({ ...formData, order: Number(e.target.value) })}
             disabled={loading}
             placeholder="0"
-            warningText="Küçük numara önce gösterilir"
+            warningText="Smaller numbers will be shown first"
           />
         </div>
 
@@ -364,7 +364,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
             }
           }}
         >
-          {loading ? 'Oluşturuluyor...' : 'Proje Oluştur'}
+          {loading ? 'Creating...' : 'Create Project'}
         </button>
       </form>
     </div>

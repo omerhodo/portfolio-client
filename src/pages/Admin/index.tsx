@@ -73,13 +73,13 @@ const Admin = () => {
         <div className="flex justify-between items-center mb-8 border-b border-gray-300 pb-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">Admin Panel</h1>
-            <p className="text-gray-600">Hoş geldin, {user?.username}!</p>
+            <p className="text-gray-600">Welcome, {user?.username}!</p>
           </div>
           <button
             onClick={handleLogout}
             className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white border-none rounded cursor-pointer transition-colors text-sm"
           >
-            Çıkış Yap
+            Logout
           </button>
         </div>
 
@@ -95,22 +95,22 @@ const Admin = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <div className="bg-gray-50 p-8 rounded-lg">
                     <h2 className="mb-4 text-xl font-bold">Dashboard</h2>
-                    <p>Admin paneline hoş geldiniz!</p>
+                    <p>Welcome to the admin panel!</p>
 
                     <div className="mt-8">
-                      <h3 className="mb-2 font-semibold">Kullanıcı Bilgileri:</h3>
+                      <h3 className="mb-2 font-semibold">User Information:</h3>
                       <ul className="list-none p-0 space-y-1">
                         <li>
                           <strong>ID:</strong> {user?._id}
                         </li>
                         <li>
-                          <strong>Kullanıcı Adı:</strong> {user?.username}
+                          <strong>Username:</strong> {user?.username}
                         </li>
                         <li>
                           <strong>Email:</strong> {user?.email}
                         </li>
                         <li>
-                          <strong>Rol:</strong> {user?.role}
+                          <strong>Role:</strong> {user?.role}
                         </li>
                       </ul>
                     </div>
@@ -120,7 +120,7 @@ const Admin = () => {
             },
             {
               id: 'projects',
-              label: 'Projeler',
+              label: 'Projects',
               icon: '📁',
               content: (
                 <div>
@@ -135,7 +135,7 @@ const Admin = () => {
             },
             {
               id: 'settings',
-              label: 'Ayarlar',
+              label: 'Settings',
               icon: '⚙️',
               content: (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
