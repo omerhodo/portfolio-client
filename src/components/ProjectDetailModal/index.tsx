@@ -1,4 +1,5 @@
 import type { Project } from '@/types';
+import LazyImage from '@components/LazyImage';
 import Modal from '@components/Modal';
 
 interface ProjectDetailModalProps {
@@ -39,7 +40,15 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
       <div>
         <div className="w-full h-96 bg-gray-100 rounded-lg overflow-hidden mb-8 relative">
           {imageUrl ? (
-            <img src={imageUrl} alt={project.title} className="w-full h-full object-cover" />
+            <LazyImage
+              src={imageUrl}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              width="100%"
+              height="100%"
+              threshold={0}
+              rootMargin="0px"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-9xl text-gray-300">📁</div>
           )}

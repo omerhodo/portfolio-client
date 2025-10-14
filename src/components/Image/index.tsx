@@ -1,3 +1,5 @@
+import LazyImage from '@components/LazyImage';
+
 interface ImageProps {
   src: string;
   alt: string;
@@ -8,6 +10,10 @@ interface ImageProps {
   height?: string | number;
   backgroundColor?: string;
   className?: string;
+  lazy?: boolean;
+  placeholderColor?: string;
+  threshold?: number;
+  rootMargin?: string;
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -20,7 +26,30 @@ const Image: React.FC<ImageProps> = ({
   height,
   backgroundColor,
   className,
+  lazy = true,
+  placeholderColor,
+  threshold,
+  rootMargin,
 }) => {
+  if (lazy) {
+    return (
+      <LazyImage
+        src={src}
+        alt={alt}
+        style={style}
+        border={border}
+        borderRadius={borderRadius}
+        width={width}
+        height={height}
+        backgroundColor={backgroundColor}
+        className={className}
+        placeholderColor={placeholderColor}
+        threshold={threshold}
+        rootMargin={rootMargin}
+      />
+    );
+  }
+
   return (
     <img
       src={src}

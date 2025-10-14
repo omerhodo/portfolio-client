@@ -1,4 +1,5 @@
 import type { Project } from '@/types';
+import LazyImage from '@components/LazyImage';
 
 interface ProjectCardProps {
   project: Project;
@@ -15,10 +16,14 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
     >
       <div className="relative w-full h-full bg-gray-100 overflow-hidden group">
         {imageUrl ? (
-          <img
+          <LazyImage
             src={imageUrl}
             alt={project.title}
             className="w-full h-full min-h-[350px] object-cover transition-transform duration-300 group-hover:scale-105 filter brightness-70 hover:brightness-100"
+            width="100%"
+            height="100%"
+            threshold={0.1}
+            rootMargin="100px"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-8xl text-gray-300">📁</div>

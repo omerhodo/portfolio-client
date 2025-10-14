@@ -29,7 +29,7 @@ const MainHeader = () => {
           backgroundColor="black"
         />
       </div>
-      <div className="flex mb-8 md:mb-24 items-center justify-end flex-col md:flex-row gap-8 md:gap-0">
+      <div className="flex mb-8 md:mb-24 items-center justify-end flex-col md:flex-row gap-8">
         <p className={styles['second-one']}>a software</p>
         <Image
           src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -38,7 +38,7 @@ const MainHeader = () => {
           height="50px"
           border="3px solid black"
           borderRadius="20px"
-          style={{ objectFit: 'cover', marginInlineStart: '10px', marginInlineEnd: '10px' }}
+          style={{ objectFit: 'cover' }}
         />
         <motion.p
           className={styles['second-two']}
