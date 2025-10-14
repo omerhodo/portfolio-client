@@ -109,12 +109,10 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
 
       if (!response.ok) {
         console.error('Server error response:', data);
-        throw new Error(data.message || 'Proje oluşturma başarısız');
+        throw new Error(data.message || 'Project creation failed');
       }
 
-      console.log('Success response:', data);
-
-      setSuccess('Proje başarıyla oluşturuldu!');
+      setSuccess('Project created successfully!');
 
       setFormData({
         title: '',
