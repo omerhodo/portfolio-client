@@ -91,14 +91,6 @@ const Home = () => {
           </div>
         </Container>
       )}
-
-      {!loading && projects.length === 0 && !error && (
-        <Container className="bg-white">
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600">Henüz proje eklenmemiş.</p>
-          </div>
-        </Container>
-      )}
     </>
   );
 };
