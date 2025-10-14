@@ -40,27 +40,30 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-auto relative animate-slideUp shadow-2xl"
+        className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] relative animate-slideUp shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full border-none bg-gray-100 hover:bg-gray-200 text-gray-800 text-2xl cursor-pointer flex items-center justify-center transition-all hover:scale-110 z-10"
-          aria-label="Close modal"
-        >
-          ×
-        </button>
+        {/* Header - Fixed at top with close button */}
+        <div className="flex-shrink-0 relative">
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-10 h-10 rounded-full border-none bg-stone-200 hover:bg-stone-400 text-gray-800 text-2xl cursor-pointer flex items-center justify-center transition-all hover:scale-110 z-10"
+            aria-label="Close modal"
+          >
+            ×
+          </button>
 
-        {/* Title */}
-        {title && (
-          <div className="px-8 py-6 border-b border-gray-200">
-            <h2 className="text-3xl font-bold text-gray-800 m-0 pr-12">{title}</h2>
-          </div>
-        )}
+          {/* Title */}
+          {title && (
+            <div className="px-8 py-6 border-b border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-800 m-0 pr-12">{title}</h2>
+            </div>
+          )}
+        </div>
 
-        {/* Content */}
-        <div className={title ? 'p-8' : 'py-12 px-8'}>{children}</div>
+        {/* Content - Scrollable */}
+        <div className={`overflow-auto modal-content ${title ? 'p-8' : 'py-12 px-8'}`}>{children}</div>
       </div>
 
       {/* Animations */}
