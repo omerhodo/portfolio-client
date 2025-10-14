@@ -130,24 +130,35 @@ const Admin = () => {
               ),
             },
             {
-              id: 'projects',
-              label: 'Projects',
-              icon: '📁',
+              id: 'manage-projects',
+              label: 'Manage Projects',
+              icon: '🗂️',
               content: (
                 <div ref={projectsTabRef}>
+                  <ProjectList
+                    refreshTrigger={refreshTrigger}
+                    onProjectUpdated={() => {
+                      setRefreshTrigger((prev) => prev + 1);
+                    }}
+                  />
+                </div>
+              ),
+            },
+            {
+              id: 'add-project',
+              label: 'Add New Project',
+              icon: '➕',
+              content: (
+                <div>
                   <ProjectForm
                     onProjectCreated={() => {
+                      // Switch to manage projects tab
+                      setActiveTab('manage-projects');
                       // Scroll to top
                       if (projectsTabRef.current) {
                         projectsTabRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                       // Refresh project list
-                      setRefreshTrigger((prev) => prev + 1);
-                    }}
-                  />
-                  <ProjectList
-                    refreshTrigger={refreshTrigger}
-                    onProjectUpdated={() => {
                       setRefreshTrigger((prev) => prev + 1);
                     }}
                   />
