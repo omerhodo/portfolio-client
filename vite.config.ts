@@ -1,9 +1,11 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
-export default defineConfig(async () => {
+export default defineConfig(async ({ mode }) => {
   const tailwindcss = (await import('@tailwindcss/vite')).default;
+
+  const env = loadEnv(mode, process.cwd(), '');
 
   return {
     plugins: [react(), tailwindcss()],
@@ -22,7 +24,7 @@ export default defineConfig(async () => {
       port: 3000,
       proxy: {
         '/api': {
-          target: 'http://localhost:5001',
+          target: env.VITE_BASE_URL || 'http://localhost:5001',
           changeOrigin: true,
         },
       },
