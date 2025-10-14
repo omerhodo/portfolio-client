@@ -136,12 +136,12 @@ const FullscreenProjectSlider = ({
       className="fullscreen-slider relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
       style={{ scrollSnapAlign: 'start' }}
     >
-      <div className="absolute inset-0 opacity-5" style={{ backgroundColor: getProjectTypeColor(projectType) }} />
+      <div className="absolute inset-0 opacity-60" style={{ backgroundColor: getProjectTypeColor(projectType) }} />
 
       {currentIndex === 0 && (
         <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10">
           <div className="flex flex-col items-center gap-2">
-            <h2 className="text-4xl md:text-6xl font-notable text-stone-300 text-shadow-md opacity-60">
+            <h2 className="text-4xl md:text-6xl font-notable text-center text-stone-300 text-shadow-md opacity-60">
               {icon} {title}
             </h2>
           </div>

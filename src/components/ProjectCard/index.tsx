@@ -11,7 +11,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer relative hover:-translate-y-2"
+      className="w-full h-full bg-white overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer relative hover:scale-[1.02]"
     >
       <div className="relative w-full h-full bg-gray-100 overflow-hidden group">
         {imageUrl ? (
