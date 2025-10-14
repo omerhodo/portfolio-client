@@ -40,13 +40,13 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        setError("Dosya boyutu 5MB'dan küçük olmalıdır");
+        setError('File size must be less than 5MB');
         return;
       }
 
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
       if (!allowedTypes.includes(file.type)) {
-        setError('Sadece resim dosyaları yüklenebilir (jpeg, jpg, png, gif, webp)');
+        setError('Only image files are allowed (jpeg, jpg, png, gif, webp)');
         return;
       }
 
@@ -71,9 +71,9 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     try {
       const token = localStorage.getItem('token');
 
-      // Zorunlu alanları kontrol et
+      // Check required fields
       if (!formData.title || !formData.description || !formData.projectType) {
-        setError('Lütfen tüm zorunlu alanları doldurun');
+        setError('Please fill in all required fields');
         setLoading(false);
         return;
       }
@@ -134,7 +134,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
         }, 1500);
       }
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu');
+      setError(err.message || 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -199,7 +199,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
           required
           disabled={loading}
           placeholder="My Awesome Project"
-          warningText="Maks 100 character"
+          warningText="Max 100 characters"
         />
 
         <TextAreaField
@@ -211,7 +211,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
           placeholder="About my awesome project..."
           rows={4}
           maxLength={500}
-          warningText="Maks 500 character"
+          warningText="Max 500 characters"
         />
 
         <SelectField
