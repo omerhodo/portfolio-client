@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const AboutMe = () => {
   return (
-    <div className="ml-0 justify-start flex md:flex-row flex-col md:p-0 p-5 md:ml-50 py-20 md:py-0">
+    <div className="ml-auto mr-auto justify-center flex md:flex-row flex-col md:ml-50 py-20 md:py-0">
       <motion.div
         initial={{ x: -200, y: 200 }}
         whileInView={{ x: 0, y: 0 }}
@@ -18,11 +18,11 @@ const AboutMe = () => {
           alt="Ömer Hodo"
           border="3px solid yellow"
           borderRadius="20px"
-          className="brightness-20"
+          className="brightness-20 max-w-[300px] max-h-[300px] md:max-w-[400px] md:max-h-[400px] ml-auto mr-auto"
           style={{ transform: 'rotate(-5deg)' }}
         />
       </motion.div>
-      <div className="max-w-lg flex flex-col justify-center gap-4 ml-0 -mt-50 z-1 text-fuchsia-400 md:-ml-20 md:-mt-10">
+      <div className="max-w-lg flex flex-col justify-center gap-4 z-1 text-fuchsia-400 ml-0 -mt-50 md:-ml-20 md:-mt-10 md:px-0 px-5">
         <h2 className="ml-5 text-5xl font-raleway">About Me</h2>
         <motion.div initial={{ x: 400 }} whileInView={{ x: 0 }} transition={{ duration: 1 }} viewport={{ once: true }}>
           <p className="font-montserrat">

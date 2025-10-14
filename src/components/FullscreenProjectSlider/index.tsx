@@ -140,8 +140,8 @@ const FullscreenProjectSlider = ({
       <div className="absolute inset-0 opacity-60" style={{ backgroundColor: getProjectTypeColor(projectType) }} />
 
       {currentIndex === 0 && (
-        <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="flex flex-row items-center gap-6 justify-center">
+        <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10 px-4">
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 justify-center">
             <motion.div
               initial={{ x: -200, y: 200 }}
               whileInView={{ x: 0, y: 0 }}
@@ -156,7 +156,7 @@ const FullscreenProjectSlider = ({
               whileInView={{ x: 0, y: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-notable text-center text-stone-300 text-shadow-xl opacity-90"
+              className="text-xl md:text-6xl font-notable text-center text-stone-300 text-shadow-xl opacity-90"
             >
               {title}
             </motion.div>
@@ -194,14 +194,14 @@ const FullscreenProjectSlider = ({
       <ProjectCard project={projects[currentIndex]} onClick={() => handleProjectClick(projects[currentIndex])} />
 
       {/* Project Name - Bottom Left Overlay */}
-      <div className="absolute bottom-4 left-8 z-10 max-w-[300px]">
+      <div className="absolute md:bottom-4 md:left-8 bottom-2 left-2 z-10 md:max-w-[300px] max-w-[150px]">
         <div className="bg-white/10 backdrop-blur-md px-4 py-1 rounded-2xl shadow-lg">
           <p className="text-sm text-stone-100 font-suse-mono truncate">{projects[currentIndex].title}</p>
         </div>
       </div>
 
       {/* Counter - Bottom Right Overlay */}
-      <div className="absolute bottom-4 right-8 z-10 max-w-[300px]">
+      <div className="absolute md:bottom-4 md:right-8 bottom-2 right-2 z-10 md:max-w-[300px] max-w-[150px]">
         <div className="bg-white/10 backdrop-blur-md px-4 py-1 rounded-2xl shadow-lg">
           <span className="text-sm text-stone-100 font-suse-mono">
             {currentIndex + 1} / {projects.length}
@@ -226,7 +226,7 @@ const FullscreenProjectSlider = ({
       {/* Progress Dots - Bottom Center */}
       {projects.length > 1 && (
         <div
-          className={`absolute left-1/2 transform -translate-x-1/2 flex gap-2 ${
+          className={`absolute left-1/2 transform -translate-x-1/2 flex gap-2 max-w-[150px] ${
             isLastSection ? 'bottom-4' : 'bottom-20'
           }`}
         >
