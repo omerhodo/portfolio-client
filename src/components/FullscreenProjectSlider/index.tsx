@@ -1,6 +1,7 @@
 import type { Project } from '@/types';
 import ProjectCard from '@components/ProjectCard';
 import ProjectDetailModal from '@components/ProjectDetailModal';
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 interface FullscreenProjectSliderProps {
@@ -140,10 +141,25 @@ const FullscreenProjectSlider = ({
 
       {currentIndex === 0 && (
         <div className="absolute w-full top-8 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="flex flex-col items-center gap-2">
-            <h2 className="text-4xl md:text-6xl font-notable text-center text-stone-300 text-shadow-md opacity-60">
-              {icon} {title}
-            </h2>
+          <div className="flex flex-row items-center gap-6 justify-center">
+            <motion.div
+              initial={{ x: -200, y: 200 }}
+              whileInView={{ x: 0, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-notable text-center text-stone-300 text-shadow-md opacity-60"
+            >
+              {icon}
+            </motion.div>
+            <motion.div
+              initial={{ x: 200, y: 200 }}
+              whileInView={{ x: 0, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-notable text-center text-stone-300 text-shadow-xl opacity-90"
+            >
+              {title}
+            </motion.div>
           </div>
         </div>
       )}
