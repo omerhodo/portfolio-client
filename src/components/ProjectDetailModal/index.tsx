@@ -1,5 +1,4 @@
 import type { Project } from '@/types';
-import { getImageUrl } from '@/utils/api';
 import Modal from '@components/Modal';
 
 interface ProjectDetailModalProps {
@@ -11,7 +10,7 @@ interface ProjectDetailModalProps {
 const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProps) => {
   if (!project) return null;
 
-  const imageUrl = project.imagePath ? getImageUrl(project.imagePath) : project.imageUrl;
+  const imageUrl = project.imageUrl;
 
   const getProjectTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {

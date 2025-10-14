@@ -1,5 +1,4 @@
 import type { Project } from '@/types';
-import { getImageUrl } from '@utils/api';
 
 interface ProjectCardProps {
   project: Project;
@@ -7,7 +6,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
-  const imageUrl = project.imagePath ? getImageUrl(project.imagePath) : project.imageUrl;
+  const imageUrl = project.imageUrl;
 
   return (
     <div

@@ -1,5 +1,4 @@
 import type { Project } from '@/types';
-import { getImageUrl } from '@/utils/api';
 
 interface ProjectSectionProps {
   project: Project;
@@ -7,7 +6,7 @@ interface ProjectSectionProps {
 }
 
 const ProjectSection = ({ project, reverse = false }: ProjectSectionProps) => {
-  const imageUrl = project.imagePath ? getImageUrl(project.imagePath) : project.imageUrl;
+  const imageUrl = project.imageUrl;
 
   const getProjectTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
