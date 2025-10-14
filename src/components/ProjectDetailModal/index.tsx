@@ -27,7 +27,7 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('tr-TR', {
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -66,13 +66,13 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
         </div>
 
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">📝 Açıklama</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">📝 Description</h3>
           <p className="text-base leading-relaxed text-gray-600 whitespace-pre-wrap">{project.description}</p>
         </div>
 
         {project.technologies && project.technologies.length > 0 && (
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">🛠️ Teknolojiler</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">🛠️ Technologies</h3>
             <div className="flex flex-wrap gap-3">
               {project.technologies.map((tech, index) => (
                 <span

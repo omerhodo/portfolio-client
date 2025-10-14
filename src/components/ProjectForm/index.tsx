@@ -195,29 +195,29 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
       <form onSubmit={handleSubmit}>
         <InputField
           type="text"
-          label="Proje Başlığı *"
+          label="Project Title *"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
           disabled={loading}
-          placeholder="Örn: Portfolio Website"
-          warningText="Maksimum 100 karakter"
+          placeholder="My Awesome Project"
+          warningText="Maks 100 character"
         />
 
         <TextAreaField
-          label="Açıklama *"
+          label="Description *"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           required
           disabled={loading}
-          placeholder="Proje hakkında detaylı açıklama..."
+          placeholder="About my awesome project..."
           rows={4}
           maxLength={500}
-          warningText="Maksimum 500 karakter"
+          warningText="Maks 500 character"
         />
 
         <SelectField
-          label="Proje Tipi *"
+          label="Project Type *"
           value={formData.projectType}
           onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
           required
@@ -227,18 +227,18 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
 
         <InputField
           type="text"
-          label="Teknolojiler"
+          label="Technologies"
           value={formData.technologies}
           onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
           disabled={loading}
-          placeholder="React, TypeScript, Node.js (virgülle ayırın)"
-          warningText="Virgülle ayırarak giriniz"
+          placeholder="React, TypeScript, Node.js (separate with commas)"
+          warningText="Please separate with commas"
         />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <InputField
             type="url"
-            label="Proje URL"
+            label="Project URL"
             value={formData.projectUrl}
             onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
             disabled={loading}
