@@ -1,4 +1,5 @@
 import InputField from '@components/InputField';
+import axios from 'axios';
 import { FormEvent, useState } from 'react';
 
 interface LoginProps {
@@ -17,26 +18,17 @@ const Login = ({ onLoginSuccess }: LoginProps) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        username,
+        password,
       });
 
-      const data = await response.json();
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data));
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Giriş başarısız');
-      }
-
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data));
-
-      onLoginSuccess(data.token, data);
+      onLoginSuccess(response.data.token, response.data);
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu');
+      setError(err.response?.data?.message || err.message || 'Bir hata oluştu');
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@ import Container from '@/components/Container';
 import FullscreenProjectSlider from '@/components/FullscreenProjectSlider';
 import type { Project } from '@/types';
 import MainHeader from '@components/MainHeader';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
@@ -26,16 +27,10 @@ const Home = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
-
-      if (!response.ok) {
-        throw new Error('Projeler yüklenemedi');
-      }
-
-      const data = await response.json();
-      setProjects(data);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
+      setProjects(response.data);
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu');
+      setError(err.response?.data?.message || err.message || 'Bir hata oluştu');
       console.error('Fetch projects error:', err);
     } finally {
       setLoading(false);

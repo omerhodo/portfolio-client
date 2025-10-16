@@ -1,5 +1,6 @@
 import { Project } from '@/types';
 import Modal from '@components/Modal';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 interface ProjectListProps {
@@ -48,14 +49,10 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch projects');
-      }
-      const data = await response.json();
-      setProjects(data);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
+      setProjects(response.data);
     } catch (err: any) {
-      setError(err.message || 'Failed to load projects');
+      setError(err.response?.data?.message || err.message || 'Failed to load projects');
     } finally {
       setLoading(false);
     }
@@ -68,23 +65,18 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
-        method: 'DELETE',
+      await axios.delete(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete project');
-      }
 
       setProjects(projects.filter((p) => p._id !== id));
       if (onProjectUpdated) {
         onProjectUpdated();
       }
     } catch (err: any) {
-      alert(err.message || 'Failed to delete project');
+      alert(err.response?.data?.message || err.message || 'Failed to delete project');
     }
   };
 
@@ -102,17 +94,11 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
       formDataToSend.append('featured', String(!project.featured));
       formDataToSend.append('order', String(project.order || 0));
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${project._id}`, {
-        method: 'PUT',
+      await axios.put(`${import.meta.env.VITE_API_URL}/projects/${project._id}`, formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formDataToSend,
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to update featured status');
-      }
 
       fetchProjects();
       if (onProjectUpdated) {
@@ -193,12 +179,10 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
           formDataToSend.append('featured', String(project.featured || false));
           formDataToSend.append('order', String(project.order || 0));
 
-          await fetch(`${import.meta.env.VITE_API_URL}/projects/${project._id}`, {
-            method: 'PUT',
+          await axios.put(`${import.meta.env.VITE_API_URL}/projects/${project._id}`, formDataToSend, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            body: formDataToSend,
           });
         })
       );
@@ -281,18 +265,11 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
         formDataToSend.append('image', imageFile);
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects/${editingProject._id}`, {
-        method: 'PUT',
+      await axios.put(`${import.meta.env.VITE_API_URL}/projects/${editingProject._id}`, formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formDataToSend,
       });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Failed to update project');
-      }
 
       setUpdateSuccess('Project updated successfully!');
 

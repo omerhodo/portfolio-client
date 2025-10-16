@@ -4,6 +4,7 @@ import Login from '@components/Login';
 import ProjectForm from '@components/ProjectForm';
 import ProjectList from '@components/ProjectList';
 import Tabs from '@components/Tabs';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 const Admin = () => {
@@ -27,20 +28,14 @@ const Admin = () => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/me`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-        setIsAuthenticated(true);
-      } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
+      setUser(response.data);
+      setIsAuthenticated(true);
     } catch (error) {
       console.error('Auth check failed:', error);
       localStorage.removeItem('token');

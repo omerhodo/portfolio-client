@@ -1,4 +1,5 @@
 import InputField from '@components/InputField';
+import axios from 'axios';
 import { FormEvent, useState } from 'react';
 
 interface ChangePasswordProps {
@@ -38,23 +39,18 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/auth/change-password`,
+        {
           currentPassword,
           newPassword,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
-      }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setSuccess('Password changed successfully!');
       setCurrentPassword('');
@@ -67,7 +63,7 @@ const ChangePassword = ({ onPasswordChanged }: ChangePasswordProps) => {
         }, 2000);
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred');
+      setError(err.response?.data?.message || err.message || 'An error occurred');
     } finally {
       setLoading(false);
     }

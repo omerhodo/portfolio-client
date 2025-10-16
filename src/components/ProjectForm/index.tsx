@@ -1,6 +1,7 @@
 import InputField from '@components/InputField';
 import SelectField from '@components/SelectField';
 import TextAreaField from '@components/TextAreaField';
+import axios from 'axios';
 import { FormEvent, useState } from 'react';
 
 interface ProjectFormProps {
@@ -97,20 +98,11 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
         console.log(pair[0] + ': ' + pair[1]);
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
-        method: 'POST',
+      await axios.post(`${import.meta.env.VITE_API_URL}/projects`, formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formDataToSend,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error('Server error response:', data);
-        throw new Error(data.message || 'Project creation failed');
-      }
 
       setSuccess('Project created successfully!');
 
