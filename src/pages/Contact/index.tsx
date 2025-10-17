@@ -64,6 +64,11 @@ const ContactForm = () => {
         message: '',
       });
 
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+
       // Clear success message after 5 seconds
       setTimeout(() => setSuccess(false), 5000);
     } catch (err: any) {
