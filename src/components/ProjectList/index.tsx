@@ -21,6 +21,7 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
     technologies: '',
     projectUrl: '',
     githubUrl: '',
+    privacyPolicy: '',
     featured: false,
     order: 0,
   });
@@ -91,6 +92,7 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
       formDataToSend.append('technologies', Array.isArray(project.technologies) ? project.technologies.join(', ') : '');
       formDataToSend.append('projectUrl', project.projectUrl || '');
       formDataToSend.append('githubUrl', project.githubUrl || '');
+      formDataToSend.append('privacyPolicy', project.privacyPolicy || '');
       formDataToSend.append('featured', String(!project.featured));
       formDataToSend.append('order', String(project.order || 0));
 
@@ -205,6 +207,7 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
       technologies: Array.isArray(project.technologies) ? project.technologies.join(', ') : '',
       projectUrl: project.projectUrl || '',
       githubUrl: project.githubUrl || '',
+      privacyPolicy: project.privacyPolicy || '',
       featured: project.featured || false,
       order: project.order || 0,
     });
@@ -258,6 +261,7 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
       formDataToSend.append('technologies', formData.technologies);
       formDataToSend.append('projectUrl', formData.projectUrl);
       formDataToSend.append('githubUrl', formData.githubUrl);
+      formDataToSend.append('privacyPolicy', formData.privacyPolicy);
       formDataToSend.append('featured', String(formData.featured));
       formDataToSend.append('order', String(formData.order));
 
@@ -503,6 +507,23 @@ const ProjectList = ({ onProjectUpdated, refreshTrigger }: ProjectListProps) => 
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Privacy Policy <span className="text-gray-400 font-normal">(Optional)</span>
+              </label>
+              <textarea
+                value={formData.privacyPolicy}
+                onChange={(e) => setFormData({ ...formData, privacyPolicy: e.target.value })}
+                disabled={updateLoading}
+                rows={6}
+                placeholder="Enter privacy policy text here (optional)..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Only add if this project has a privacy policy. Leave empty otherwise.
+              </p>
             </div>
 
             <div>

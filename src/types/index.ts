@@ -9,6 +9,7 @@ export interface Project {
   imagePublicId?: string;
   projectUrl?: string;
   githubUrl?: string;
+  privacyPolicy?: string;
   featured?: boolean;
   order?: number;
   createdAt?: string;

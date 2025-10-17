@@ -1,15 +1,17 @@
 import type { Project } from '@/types';
 import LazyImage from '@components/LazyImage';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const navigate = useNavigate();
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const privacyPolicyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -35,6 +37,18 @@ const ProjectDetail = () => {
     // Scroll to top on mount
     window.scrollTo(0, 0);
   }, []);
+
+  // Handle hash navigation for privacy policy
+  useEffect(() => {
+    if (project && location.hash === '#privacy-policy' && privacyPolicyRef.current) {
+      setTimeout(() => {
+        privacyPolicyRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 100);
+    }
+  }, [project, location.hash]);
 
   const getProjectTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
@@ -198,6 +212,23 @@ const ProjectDetail = () => {
             )}
           </div>
         </div>
+
+        {/* Privacy Policy Section - Conditional */}
+        {project.privacyPolicy && (
+          <div
+            ref={privacyPolicyRef}
+            id="privacy-policy"
+            className="bg-white rounded-2xl shadow-lg p-8 mb-8 scroll-mt-24"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="text-4xl">🔒</span>
+              <span>Privacy Policy</span>
+            </h2>
+            <div className="prose prose-lg max-w-none">
+              <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">{project.privacyPolicy}</div>
+            </div>
+          </div>
+        )}
 
         {/* Back button at bottom */}
         <div className="flex justify-center">

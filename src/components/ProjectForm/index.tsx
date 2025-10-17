@@ -17,6 +17,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
     imageUrl: '',
     projectUrl: '',
     githubUrl: '',
+    privacyPolicy: '',
     featured: false,
     order: 0,
   });
@@ -86,6 +87,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
       formDataToSend.append('technologies', formData.technologies);
       formDataToSend.append('projectUrl', formData.projectUrl);
       formDataToSend.append('githubUrl', formData.githubUrl);
+      formDataToSend.append('privacyPolicy', formData.privacyPolicy);
       formDataToSend.append('featured', String(formData.featured));
       formDataToSend.append('order', String(formData.order));
 
@@ -114,6 +116,7 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
         imageUrl: '',
         projectUrl: '',
         githubUrl: '',
+        privacyPolicy: '',
         featured: false,
         order: 0,
       });
@@ -244,6 +247,16 @@ const ProjectForm = ({ onProjectCreated }: ProjectFormProps) => {
             placeholder="https://github.com/username/repo"
           />
         </div>
+
+        <TextAreaField
+          label="Privacy Policy"
+          value={formData.privacyPolicy}
+          onChange={(e) => setFormData({ ...formData, privacyPolicy: e.target.value })}
+          disabled={loading}
+          placeholder="Enter privacy policy text here (optional)..."
+          rows={6}
+          warningText="Optional - Only add if this project has a privacy policy"
+        />
 
         <div style={{ marginBottom: '1.5rem' }}>
           <label
