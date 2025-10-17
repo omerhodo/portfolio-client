@@ -44,11 +44,17 @@ const ContactForm = () => {
       // Get reCAPTCHA token
       const recaptchaToken = await executeRecaptcha('contact_form');
 
-      // Send form data
-      await axios.post(`${import.meta.env.VITE_API_URL}/contact`, {
-        ...formData,
-        recaptchaToken,
-      });
+      // Send form data with timeout
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/contact`,
+        {
+          ...formData,
+          recaptchaToken,
+        },
+        {
+          timeout: 15000, // 15 seconds timeout
+        }
+      );
 
       setSuccess(true);
       setFormData({
@@ -61,7 +67,20 @@ const ContactForm = () => {
       // Clear success message after 5 seconds
       setTimeout(() => setSuccess(false), 5000);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to send message. Please try again.');
+      console.error('Contact form error:', err);
+
+      // Handle different error types
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setError('Request timeout. The server is taking too long to respond. Please try again.');
+      } else if (err.response?.status === 404) {
+        setError('Contact endpoint not found. Please contact the administrator.');
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else if (err.message) {
+        setError(`Error: ${err.message}`);
+      } else {
+        setError('Failed to send message. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
