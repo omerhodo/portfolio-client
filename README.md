@@ -191,7 +191,3 @@ Build dosyaları `dist/` klasöründe oluşturulur.
 
 - Portfolio: [xhodo.com](https://xhodo.com)
 - GitHub: [@omerhodo](https://github.com/omerhodo)
-
-# DESC
-
-This project is a modern ERP system built on Next.js. It utilizes technologies such as TypeScript, React, Prisma, PostCSS, and i18n. The goal is to enable companies to manage core business processes—such as human resources, finance, inventory, sales, supplier, and customer management—centrally and efficiently on a single platform. It offers multi-language support and a modular architecture.
